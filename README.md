@@ -7,6 +7,8 @@
 - `index.html`: 사이트 본문
 - `CNAME`: GitHub Pages custom domain 파일
 - `CNAME_TEMPLATE.txt`: 다른 도메인으로 복제할 때 참고
+- `assets/footer-reference-icon.png`: footer 맨 아래에 보이는 작은 아이콘
+- `assets/footer-social-reference.png`: footer 아이콘을 눌렀을 때 열리는 원본 스크린샷
 
 ## 도메인
 
@@ -20,6 +22,7 @@
 - `hello@nextgen-dna.com`
 - 서비스 문구
 - 주소/기관명
+- footer 아이콘 링크: `index.html` 안의 `href="assets/footer-social-reference.png"`를 실제 SNS/회사 링크로 교체
 
 ## 로컬 미리 보기
 
