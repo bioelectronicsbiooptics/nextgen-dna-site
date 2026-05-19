@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextGen DNA</title>
+  <meta name="description" content="NextGen DNA provides focused genomic assay design, NGS workflow support, and translational bioinformatics for research teams.">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #102022;
+      --muted: #5d6f72;
+      --line: #d9e4e1;
+      --paper: #f6faf8;
+      --white: #ffffff;
+      --teal: #0f766e;
+      --green: #22a06b;
+      --blue: #315f9f;
+      --amber: #d98c18;
+      --deep: #071819;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--deep);
+    }
+
+    .mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 30% 30%, #9ff0d0 0 18%, transparent 19%),
+        linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+      flex: 0 0 auto;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: var(--teal);
+      color: var(--white);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--deep);
+      border-color: var(--line);
+    }
+
+    .hero {
+      background:
+        linear-gradient(110deg, rgba(7, 24, 25, 0.96), rgba(13, 65, 67, 0.92)),
+        linear-gradient(180deg, #092a2d, #071819);
+      color: var(--white);
+      min-height: calc(100vh - 61px);
+      display: grid;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .hero-inner {
+      max-width: 1160px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 72px 24px 82px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 520px);
+      gap: 54px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: #a8f0d6;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(44px, 8vw, 86px);
+      line-height: 0.95;
+      letter-spacing: 0;
+      max-width: 780px;
+    }
+
+    .hero p {
+      max-width: 620px;
+      margin: 24px 0 0;
+      color: #d4e9e6;
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hero .button.secondary {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .sequencer {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      padding: 18px;
+      min-height: 420px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+    }
+
+    .sequencer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      padding-bottom: 14px;
+      color: #d9f5ee;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #a8f0d6;
+    }
+
+    .status::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 18px var(--green);
+    }
+
+    .readout {
+      margin-top: 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .read {
+      display: grid;
+      grid-template-columns: 72px 1fr 52px;
+      gap: 10px;
+      align-items: center;
+      font-family: "Courier New", monospace;
+      font-size: 13px;
+      color: #dff6ef;
+    }
+
+    .read span:first-child {
+      color: #8bd2c5;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, #22a06b 0 24%, #d98c18 24% 31%, #315f9f 31% 68%, #a8f0d6 68% 100%);
+      opacity: 0.95;
+    }
+
+    .panel-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .metric {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: #b8d8d3;
+      font-size: 12px;
+    }
+
+    section {
+      padding: 76px 24px;
+    }
+
+    .wrap {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .service {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      min-height: 220px;
+    }
+
+    .service b {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: var(--deep);
+    }
+
+    .service p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .band {
+      background: var(--white);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 14px;
+      align-items: start;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+    }
+
+    .num {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: #e5f4ef;
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .step b {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .note {
+      background: #102022;
+      color: var(--white);
+      border-radius: 8px;
+      padding: 26px;
+    }
+
+    .note p {
+      color: #d7ebe7;
+      margin: 12px 0 0;
+    }
+
+    footer {
+      background: var(--deep);
+      color: #d7ebe7;
+      padding: 28px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner,
+      .pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .sequencer {
+        min-height: 0;
+      }
+
+      .services,
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="nav">
+        <a class="brand" href="#">
+          <span class="mark" aria-hidden="true"></span>
+          <span>NextGen DNA</span>
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="#services">Services</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div>
+            <div class="eyebrow">Genomics · NGS · Molecular Insight</div>
+            <h1>NextGen DNA</h1>
+            <p>Focused sequencing and genomic assay support for teams turning biological questions into practical molecular evidence.</p>
+            <div class="hero-actions">
+              <a class="button" href="mailto:hello@nextgen-dna.com">Start a project</a>
+              <a class="button secondary" href="#services">View services</a>
+            </div>
+          </div>
+
+          <aside class="sequencer" aria-label="Sequencing workflow visual">
+            <div class="sequencer-top">
+              <span>Targeted panel run</span>
+              <span class="status">QC active</span>
+            </div>
+            <div class="readout">
+              <div class="read"><span>READ_01</span><div class="bar"></div><span>98.7%</span></div>
+              <div class="read"><span>READ_02</span><div class="bar"></div><span>97.9%</span></div>
+              <div class="read"><span>READ_03</span><div class="bar"></div><span>99.1%</span></div>
+              <div class="read"><span>READ_04</span><div class="bar"></div><span>96.8%</span></div>
+              <div class="read"><span>READ_05</span><div class="bar"></div><span>98.4%</span></div>
+              <div class="read"><span>READ_06</span><div class="bar"></div><span>99.0%</span></div>
+              <div class="read"><span>READ_07</span><div class="bar"></div><span>97.6%</span></div>
+              <div class="read"><span>READ_08</span><div class="bar"></div><span>98.9%</span></div>
+            </div>
+            <div class="panel-grid">
+              <div class="metric"><strong>24h</strong><span>analysis window</span></div>
+              <div class="metric"><strong>3x</strong><span>design review</span></div>
+              <div class="metric"><strong>QC</strong><span>report ready</span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="services">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Practical genomic support for small teams</h2>
+            <p>A concise starter site for a genomics company domain. It is ready for GitHub Pages and can be expanded into a full company site later.</p>
+          </div>
+          <div class="services">
+            <article class="service">
+              <b>Targeted assay design</b>
+              <p>Primer, probe, and amplicon planning for compact molecular assays with clear design criteria.</p>
+            </article>
+            <article class="service">
+              <b>NGS workflow support</b>
+              <p>Library preparation planning, sample tracking structure, and sequencing run QC review.</p>
+            </article>
+            <article class="service">
+              <b>Bioinformatics reporting</b>
+              <p>Variant, panel, and read-level summaries prepared for research review and follow-up planning.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="workflow">
+        <div class="wrap pipeline">
+          <div>
+            <div class="section-head">
+              <h2>From question to result package</h2>
+              <p>A simple engagement model keeps the site credible while the full company content is still being built.</p>
+            </div>
+            <div class="steps">
+              <div class="step">
+                <span class="num">1</span>
+                <div><b>Scope</b><p>Define target genes, sample context, reporting boundaries, and success criteria.</p></div>
+              </div>
+              <div class="step">
+                <span class="num">2</span>
+                <div><b>Design</b><p>Prepare assay or sequencing workflow details and identify likely failure points.</p></div>
+              </div>
+              <div class="step">
+                <span class="num">3</span>
+                <div><b>Review</b><p>Deliver a concise result package with QC notes and next experimental actions.</p></div>
+              </div>
+            </div>
+          </div>
+          <aside class="note" id="contact">
+            <h2>Contact</h2>
+            <p>Email: <a href="mailto:hello@nextgen-dna.com">hello@nextgen-dna.com</a></p>
+            <p>Domain: <a href="https://nextgen-dna.com">nextgen-dna.com</a></p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>NextGen DNA</span>
+        <span>Genomic assay design and sequencing workflow support</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
