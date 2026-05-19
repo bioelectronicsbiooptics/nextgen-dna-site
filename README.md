@@ -32,10 +32,16 @@ python3 -m http.server 8080
 
 ## 배포
 
-GitHub repo를 만든 뒤:
+이미 GitHub repo와 연결되어 있습니다.
 
 ```bash
-git remote add origin https://github.com/bioelectronicsbiooptics/nextgen-dna-site.git
-git push -u origin main
+git remote -v
 ```
 
+수정 후 반영:
+
+```bash
+git add .
+git commit -m "Update NextGen DNA site"
+git push origin main
+```
